@@ -7,17 +7,9 @@ module Credy
   class CreditCard
 
     def self.number(options = {})
-      valid_rules = Rules.flatten.select do |rule|
-        valid = true
-        [:country, :type].each do |condition|
-          valid = false if options[condition] && options[condition] != rule[condition]
-        end
-        valid
-      end
+      rule = Rules.filter(options).sample
 
-      return nil if valid_rules.empty?
-
-      rule = valid_rules.sample
+      return nil unless rule
 
       length = rule[:length].is_a?(Array) ? rule[:length].sample : rule[:length]
 
