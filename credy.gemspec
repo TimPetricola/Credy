@@ -15,4 +15,5 @@ Gem::Specification.new do |s|
   s.version       = Credy::VERSION
 
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rspec-mocks'
 end

@@ -22,3 +22,4 @@ PLATFORMS
 DEPENDENCIES
   credy!
   rspec
+  rspec-mocks
