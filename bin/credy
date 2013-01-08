@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'credy'
+
+puts Credy::CreditCard.number[:number]
