@@ -35,11 +35,10 @@ module Credy
 
     def self.filter(filters = {})
       flatten.select do |rule|
-        valid = true
         [:country, :type].each do |condition|
-          valid = false if filters[condition] && filters[condition] != rule[condition]
+          break false if filters[condition] && filters[condition] != rule[condition]
+          true
         end
-        valid
       end
     end
 
