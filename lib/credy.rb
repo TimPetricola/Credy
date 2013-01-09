@@ -12,13 +12,21 @@ module Credy
       return nil unless rule
 
       length = rule[:length].is_a?(Array) ? rule[:length].sample : rule[:length]
+      number = rule[:prefix] 
 
-      begin 
-        number = rule[:prefix] 
-        (length - number.length).times do
-          number = number + (1 + rand(9)).to_s
-        end
-      end while !Check.luhn number
+      # Generate everything except the last digit
+      (length - number.length).times do
+        number = number + rand(10).to_s
+      end
+
+      # Generate the last digit according to luhn algorithm
+      l = nil
+      digits = (0..9).to_a.map(&:to_s)
+      begin
+        l = digits.delete digits.sample
+      end while !Check.luhn number+l
+
+      number = number+l
 
       {
         number: number,
