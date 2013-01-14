@@ -1,5 +1,43 @@
 #!/usr/bin/env ruby
 
+require 'thor'
 require 'credy'
 
-puts Credy::CreditCard.number[:number]
+module Credy
+
+  class CLI < Thor
+
+    desc "generate", "Generate a credit card number"
+    method_option :details, aliases: '-d', desc: "Show card details"
+    method_option :country, aliases: '-c', type: :string, default: 'all', desc: "Card's issuing country (au, fr, us, ca, ...)"
+    method_option :type, aliases: '-t', type: :string, default: 'all', desc: "Card's type (visa, mastercard, americanexpress)"
+    method_option :number, aliases: '-n', type: :numeric, default: 1, desc: "Number of cards"
+    def generate
+      details = options[:details]
+
+      args = {}
+      args[:country] = options[:country] unless options[:country] == 'all'
+      args[:type] = options[:type] unless options[:type] == 'all'
+
+      options[:number].times do 
+        number = CreditCard.number args
+
+        unless number
+          puts 'No rule found for those criteria.'
+          break
+        end
+        
+        if details
+          puts "#{number[:number]} (#{number[:type]}, #{number[:country]})"
+        else
+          puts number[:number]
+        end
+      end
+    end
+    map 'g' => :generate
+  
+  end
+
+end
+
+Credy::CLI.start
