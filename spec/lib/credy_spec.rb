@@ -51,6 +51,16 @@ describe Credy::CreditCard do
       number[:country].should == 'au'
     end
 
+    it 'generates the right number of digits' do
+      number = subject.generate type: 'mastercard'
+      number[:number].length.should == 16
+    end
+
+    it 'generate a number with the right prefix' do
+      number = subject.generate type: 'mastercard', country: 'au'
+      number[:number].should =~ /^401795/
+    end
+
     it 'returns nil if nothing is found' do
       number = subject.generate type: 'foo', country: 'bar'
       number.should be_nil

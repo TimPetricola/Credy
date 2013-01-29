@@ -15,12 +15,12 @@ module Credy
       length = rule[:length].is_a?(Array) ? rule[:length].sample : rule[:length]
       number = rule[:prefix] 
 
-      # Generate everything except the last digit
-      (length - number.length).times do
+      # Generates n-1 digits
+      (length - number.length - 1).times do
         number = number + rand(10).to_s
       end
 
-      # Generate the last digit according to luhn algorithm
+      # Generates the last digit according to luhn algorithm
       l = nil
       digits = (0..9).to_a.map(&:to_s)
       begin
@@ -40,7 +40,7 @@ module Credy
     def self.validate(number)
       Rules.flatten.select do |rule|
         valid = true
-        
+
         # Check number of digits
         lengths = rule[:length].is_a?(Array) ? rule[:length] : [rule[:length]]
         valid = false unless lengths.include? number.length
