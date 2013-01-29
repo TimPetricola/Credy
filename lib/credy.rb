@@ -6,7 +6,7 @@ module Credy
 
   class CreditCard
 
-    def self.number(options = {})
+    def self.generate(options = {})
       rule = Rules.filter(options).sample
 
       return nil unless rule
