@@ -4,6 +4,7 @@ module Credy
 
   class Rules
 
+    # Return all the rules from yml files
     def self.all
       @rules ||= begin
         rules = {}
@@ -15,6 +16,7 @@ module Credy
       end
     end
 
+    # Change hash format to process rules
     def self.flatten
       rules = []
       all.each do |type, details|
@@ -33,6 +35,7 @@ module Credy
       rules
     end
 
+    # Returns rules according to given filters
     def self.filter(filters = {})
       flatten.select do |rule|
         [:country, :type].each do |condition|

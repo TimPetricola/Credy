@@ -6,6 +6,7 @@ module Credy
 
   class CreditCard
 
+    # Generate a credit card number
     def self.generate(options = {})
       rule = Rules.filter(options).sample
 
