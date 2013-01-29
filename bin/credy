@@ -35,6 +35,18 @@ module Credy
       end
     end
     map 'g' => :generate
+
+    desc 'validate NUMBER', 'Show information about a credit card number'
+    def validate(number)
+      infos = CreditCard.validate number
+      if infos
+        puts "type: #{infos[:type]}"
+        puts "country: #{infos[:country]}"
+      else
+        puts 'No information available for this number.'
+      end
+    end
+    map 'v' => :validate
   
   end
 

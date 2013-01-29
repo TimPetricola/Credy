@@ -38,7 +38,7 @@ module Credy
 
     # Returns information about a number
     def self.validate(number)
-      Rules.flatten.select do |rule|
+      rules = Rules.flatten.select do |rule|
         valid = true
 
         # Check number of digits
@@ -48,7 +48,13 @@ module Credy
         # Check prefix
         valid = false unless !(number =~ Regexp.new("^#{rule[:prefix]}")).nil?
         valid
-      end[0]
+      end
+
+      if rules
+        rules[0]
+      else
+        nil
+      end
     end
   
   end
