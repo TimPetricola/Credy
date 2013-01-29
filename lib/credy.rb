@@ -35,6 +35,21 @@ module Credy
         country: rule[:country]
       }
     end
+
+    # Returns information about a number
+    def self.validate(number)
+      Rules.flatten.select do |rule|
+        valid = true
+        
+        # Check number of digits
+        lengths = rule[:length].is_a?(Array) ? rule[:length] : [rule[:length]]
+        valid = false unless lengths.include? number.length
+
+        # Check prefix
+        valid = false unless !(number =~ Regexp.new("^#{rule[:prefix]}")).nil?
+        valid
+      end[0]
+    end
   
   end
 
