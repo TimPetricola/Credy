@@ -37,7 +37,7 @@ module Credy
     end
 
     # Returns information about a number
-    def self.validate(number)
+    def self.infos(number)
       rules = Rules.flatten.select do |rule|
         valid = true
 

@@ -68,10 +68,10 @@ describe Credy::CreditCard do
 
   end
 
-  describe '.validate' do
+  describe '.infos' do
 
     it 'returns the correct information according to the card number' do
-      infos = subject.validate '5108756163954799'
+      infos = subject.infos '5108756163954799'
       infos[:type].should == 'mastercard'
       infos[:country].should == 'us'
     end

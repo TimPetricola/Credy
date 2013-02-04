@@ -68,11 +68,11 @@ describe Credy::CLI do
 
   end
 
-  describe 'validate' do
+  describe 'infos' do
 
-    it 'calls the validate function' do
-      Credy::CreditCard.should_receive(:validate).with '5108756163954799'
-      Credy::CLI.start ['validate', '5108756163954799']
+    it 'calls the infos function' do
+      Credy::CreditCard.should_receive(:infos).with '5108756163954799'
+      Credy::CLI.start ['infos', '5108756163954799']
     end
 
     describe 'result' do
@@ -81,17 +81,17 @@ describe Credy::CLI do
       end
 
       it 'show error if nothing found' do
-        Credy::CreditCard.should_receive(:validate).and_return nil
+        Credy::CreditCard.should_receive(:infos).and_return nil
         STDOUT.should_receive(:puts).with 'No information available for this number.'
-        Credy::CLI.start ['validate', '5108756163954799']
+        Credy::CLI.start ['infos', '5108756163954799']
       end
 
       it 'show the card informations' do
         number = {number: '50076645747856835', type: 'visa', country: 'au'}
-        Credy::CreditCard.should_receive(:validate).and_return number
+        Credy::CreditCard.should_receive(:infos).and_return number
         STDOUT.should_receive(:puts).with 'type: visa'
         STDOUT.should_receive(:puts).with 'country: au'
-        Credy::CLI.start ['validate', '50076645747856835']
+        Credy::CLI.start ['infos', '50076645747856835']
       end
     end
 
