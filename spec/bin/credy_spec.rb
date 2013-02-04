@@ -119,7 +119,7 @@ describe Credy::CLI do
        it 'shows card validity and details for invalid number' do
         validity = { valid: false, details: { luhn: false, type: false} }
         Credy::CreditCard.should_receive(:validate).and_return validity
-        STDOUT.should_receive(:puts).with 'This number is notv alid.'
+        STDOUT.should_receive(:puts).with 'This number is not valid.'
         STDOUT.should_receive(:puts).with '(luhn: x, type: x)'
         Credy::CLI.start ['validate', '5108756163954799']
       end

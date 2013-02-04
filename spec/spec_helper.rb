@@ -5,7 +5,7 @@ require 'credy'
 
 def silent
   _stdout = $stdout
-  $stdout = mock = StringIO.new
+  $stdout = StringIO.new
   begin
     yield
   ensure
@@ -13,10 +13,12 @@ def silent
   end
 end
 
-RSpec.configure do |config|
-  config.mock_with :rspec
-
-  config.before :each do
-    Credy::CreditCard.any_instance.stub(:colorize) { self }
+# Don't colorize strings in test environment
+class String
+  def colorize(color_code)
+    self
   end
+end
+
+RSpec.configure do |config|
 end
