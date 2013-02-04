@@ -8,7 +8,7 @@ module Credy
     def self.all
       @rules ||= begin
         rules = {}
-        Dir.glob 'data/*.yml' do |filename|
+        Dir.glob "#{Credy.root}/data/*.yml" do |filename|
           r = YAML::load IO.read(filename)
           rules.merge! r
         end

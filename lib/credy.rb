@@ -5,6 +5,10 @@ require 'credy/check'
 
 module Credy
 
+  def self.root
+    File.expand_path '../..', __FILE__
+  end
+
   class CreditCard
 
     # Generate a credit card number
