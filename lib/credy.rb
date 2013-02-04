@@ -1,4 +1,5 @@
 require 'credy/version'
+require 'credy/string'
 require 'credy/rules'
 require 'credy/check'
 

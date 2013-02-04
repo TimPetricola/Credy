@@ -47,6 +47,24 @@ module Credy
       end
     end
     map 'i' => :infos
+
+    desc 'validate NUMBER', 'Check if a credit card number is valid or not'
+    def validate(number)
+      validity = CreditCard.validate number
+
+      if validity[:valid]
+        puts 'This number is valid.'.green
+      else
+        puts 'This number is not valid.'.red
+      end
+
+      details = []
+      validity[:details].each do |criteria, value|
+        value = value ? 'v'.green : 'x'.red
+        details << "#{criteria}: #{value}"
+      end
+      puts "(#{details.join(', ')})"
+    end
   
   end
 

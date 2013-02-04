@@ -13,9 +13,19 @@ A simple credit card generator.
 
 ## CLI usage
 
-`credy generate --country au --type visa`
+### Generate
+```
+credy generate --country au --type visa
+```
 
+### Get informations
 `credy infos 5108756163954799`
+
+### Validate
+*Only a few credit card are supported at the moment, if you need this functionnality, use the details and not the global result.*
+```
+Credy::CreditCard.validate '5108756163954799'
+```
 
 ## Ruby usage
 
@@ -33,7 +43,7 @@ Credy::CreditCard.generate options
 Credy::CreditCard.infos '5108756163954799'
 ```
 
-### Validates
+### Validate
 *Only a few credit card are supported at the moment, if you need this functionnality, use the details and not the global result.*
 ``` ruby
 Credy::CreditCard.validate '5108756163954799'

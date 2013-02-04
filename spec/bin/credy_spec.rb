@@ -80,13 +80,13 @@ describe Credy::CLI do
         $stdout = @stdout
       end
 
-      it 'show error if nothing found' do
+      it 'shows error if nothing found' do
         Credy::CreditCard.should_receive(:infos).and_return nil
         STDOUT.should_receive(:puts).with 'No information available for this number.'
         Credy::CLI.start ['infos', '5108756163954799']
       end
 
-      it 'show the card informations' do
+      it 'shows the card informations' do
         number = {number: '50076645747856835', type: 'visa', country: 'au'}
         Credy::CreditCard.should_receive(:infos).and_return number
         STDOUT.should_receive(:puts).with 'type: visa'
@@ -95,6 +95,36 @@ describe Credy::CLI do
       end
     end
 
+  end
+
+  describe 'validate' do
+    it 'calls the validate function' do
+      Credy::CreditCard.should_receive(:validate).with('5108756163954799').and_return({valid: false, details: {}})
+      Credy::CLI.start ['validate', '5108756163954799']
+    end
+
+    describe 'result' do
+      before :all do
+        $stdout = @stdout
+      end
+
+      it 'shows card validity and details' do
+        validity = { valid: true, details: { luhn: true, type: true} }
+        Credy::CreditCard.should_receive(:validate).and_return validity
+        STDOUT.should_receive(:puts).with 'This number is valid.'
+        STDOUT.should_receive(:puts).with '(luhn: v, type: v)'
+        Credy::CLI.start ['validate', '50076645747856835']
+      end
+
+       it 'shows card validity and details for invalid number' do
+        validity = { valid: false, details: { luhn: false, type: false} }
+        Credy::CreditCard.should_receive(:validate).and_return validity
+        STDOUT.should_receive(:puts).with 'This number is notv alid.'
+        STDOUT.should_receive(:puts).with '(luhn: x, type: x)'
+        Credy::CLI.start ['validate', '5108756163954799']
+      end
+
+    end
   end
 
 end

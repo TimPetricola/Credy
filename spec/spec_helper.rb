@@ -14,5 +14,9 @@ def silent
 end
 
 RSpec.configure do |config|
-  
+  config.mock_with :rspec
+
+  config.before :each do
+    Credy::CreditCard.any_instance.stub(:colorize) { self }
+  end
 end
