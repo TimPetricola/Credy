@@ -9,7 +9,10 @@ module Credy
 
     # Generate a credit card number
     def self.generate(options = {})
-      rule = Rules.filter(options).sample
+
+      # Include global rules (not based on country)
+      include_global_rules = options[:country].nil?
+      rule = Rules.filter(options, include_global_rules).sample
 
       return nil unless rule
 

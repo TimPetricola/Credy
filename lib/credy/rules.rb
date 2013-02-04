@@ -64,8 +64,8 @@ module Credy
     end
 
     # Returns rules according to given filters
-    def self.filter(filters = {})
-      flatten.select do |rule|
+    def self.filter(filters = {}, global_rules = false)
+      flatten(global_rules).select do |rule|
         [:country, :type].each do |condition|
           break false if filters[condition] && filters[condition] != rule[condition]
           true

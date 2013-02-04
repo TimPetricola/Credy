@@ -17,7 +17,7 @@ module Credy
 
       args = {}
       args[:country] = options[:country] unless options[:country] == 'all'
-      args[:type] = options[:type] unless options[:type] == 'all'
+      args[:type]    = options[:type] unless options[:type] == 'all'
 
       options[:number].times do 
         number = CreditCard.generate args
@@ -28,7 +28,8 @@ module Credy
         end
         
         if details
-          puts "#{number[:number]} (#{number[:type]}, #{number[:country]})"
+          d = [number[:type], number[:country]].compact
+          puts "#{number[:number]} (#{d.join(', ')})"
         else
           puts number[:number]
         end
