@@ -39,7 +39,7 @@ module Credy
 
     # Returns information about a number
     def self.infos(number)
-      rules = Rules.flatten.select do |rule|
+      rules = Rules.flatten(true).select do |rule|
         valid = true
 
         # Check number of digits

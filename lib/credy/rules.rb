@@ -17,21 +17,49 @@ module Credy
     end
 
     # Change hash format to process rules
-    def self.flatten
+    def self.flatten(global_rules = false)
       rules = []
+
       all.each do |type, details|
-        details['countries'].each do |country, prefixes|
-          prefixes = [prefixes] unless prefixes.is_a? Array
-          prefixes.each do |prefix|
-            rules.push({
-              prefix: prefix.to_s,
-              length: details['length'],
-              type: type,
-              country: country,
-            })
+        
+        if global_rules
+          # Add general rules
+          global_prefixes = details['prefix']
+          if global_prefixes
+            global_prefixes = [global_prefixes] unless global_prefixes.is_a? Array
+
+            global_prefixes.each do |prefix|
+              rules.push({
+                prefix: prefix.to_s,
+                length: details['length'],
+                type: type
+              })
+            end
           end
         end
+
+        # Process each country
+        if details['countries']
+          details['countries'].each do |country, prefixes|
+            prefixes = [prefixes] unless prefixes.is_a? Array
+
+            # Add a rule for each prefix
+            prefixes.each do |prefix|
+              rules.push({
+                prefix: prefix.to_s,
+                length: details['length'],
+                type: type,
+                country: country,
+              })
+            end
+          end
+        end
+
       end
+
+      # Sort rules by prefix length
+      rules.sort! { |x, y|  y[:prefix].length <=> x[:prefix].length }
+
       rules
     end
 

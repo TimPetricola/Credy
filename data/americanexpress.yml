@@ -1,5 +1,6 @@
 americanexpress:
   length: 15
+  prefix: ['34', '35']
   countries:
     ca: '372301'
     fr: '374622'

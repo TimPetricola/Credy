@@ -1,5 +1,6 @@
 visa:
   length: [13, 16]
+  prefix: '4'
   countries:
     ch: '404159'
     au: ['401795', '404137']
