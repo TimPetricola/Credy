@@ -84,7 +84,7 @@ describe Credy::CreditCard do
       r = subject.validate '5108756163954792'
       r[:valid].should be_true
       r[:details][:luhn].should be_true
-      r[:details][:prefix].should be_true
+      r[:details][:type].should be_true
     end
 
     it 'checks against luhn algorithm' do
@@ -96,7 +96,7 @@ describe Credy::CreditCard do
     it 'checks against card type' do
       r = subject.validate '99999999999999999999992'
       r[:valid].should be_false
-      r[:details][:prefix].should be_false
+      r[:details][:type].should be_false
     end
 
   end

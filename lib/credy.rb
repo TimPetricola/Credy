@@ -61,7 +61,7 @@ module Credy
     def self.validate(number)
       criterii = {}
       criterii[:luhn] = Check.luhn number
-      criterii[:prefix] = !!self.infos(number)
+      criterii[:type] = !!self.infos(number)
 
       valid = criterii.all? { |_, v| v == true }
 
