@@ -5,6 +5,7 @@ A simple credit card generator.
 ## Functionnalities
 * Generates a valid number (per country/type)
 * Get information for a number
+* Check validity of a number
 
 ## Installation
 
@@ -14,10 +15,11 @@ A simple credit card generator.
 
 `credy generate --country au --type visa`
 
-`credy validate 5108756163954799`
+`credy infos 5108756163954799`
 
 ## Ruby usage
 
+### Generate
 ``` ruby
 options {
   :country => 'au',
@@ -26,13 +28,20 @@ options {
 Credy::CreditCard.generate options
 ```
 
+### Get informations
+``` ruby
+Credy::CreditCard.infos '5108756163954799'
+```
+
+### Validates
+*Only a few credit card are supported at the moment, if you need this functionnality, use the details and not the global result.*
 ``` ruby
 Credy::CreditCard.validate '5108756163954799'
 ```
 
 ## Supporter cards
 
-At the moment, only a few types and countries are supported.
+At the moment, only a few types and countries are (partially) supported.
 
 ### Types
 * americanexpress (American Express)

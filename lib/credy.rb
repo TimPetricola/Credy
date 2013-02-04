@@ -56,6 +56,20 @@ module Credy
         nil
       end
     end
+
+    # Validates a number
+    def self.validate(number)
+      criterii = {}
+      criterii[:luhn] = Check.luhn number
+      criterii[:prefix] = !!self.infos(number)
+
+      valid = criterii.all? { |_, v| v == true }
+
+      {
+        valid: valid,
+        details: criterii
+      }
+    end
   
   end
 

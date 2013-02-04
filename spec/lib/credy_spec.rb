@@ -71,9 +71,32 @@ describe Credy::CreditCard do
   describe '.infos' do
 
     it 'returns the correct information according to the card number' do
-      infos = subject.infos '5108756163954799'
+      infos = subject.infos '5108756163954792'
       infos[:type].should == 'mastercard'
       infos[:country].should == 'us'
+    end
+
+  end
+
+  describe '.validate' do
+
+    it 'returns a hash' do
+      r = subject.validate '5108756163954792'
+      r[:valid].should be_true
+      r[:details][:luhn].should be_true
+      r[:details][:prefix].should be_true
+    end
+
+    it 'checks against luhn algorithm' do
+      r = subject.validate '5108756163954791'
+      r[:valid].should be_false
+      r[:details][:luhn].should be_false
+    end
+
+    it 'checks against card type' do
+      r = subject.validate '99999999999999999999992'
+      r[:valid].should be_false
+      r[:details][:prefix].should be_false
     end
 
   end
