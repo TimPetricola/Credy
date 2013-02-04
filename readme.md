@@ -19,11 +19,13 @@ credy generate --country au --type visa
 ```
 
 ### Get informations
-`credy infos 5108756163954799`
+```
+credy infos 5108756163954799
+```
 
 ### Validate
 ```
-Credy::CreditCard.validate '5108756163954799'
+credy validate 5108756163954799
 ```
 
 ## Ruby usage
@@ -47,7 +49,7 @@ Credy::CreditCard.infos '5108756163954799'
 Credy::CreditCard.validate '5108756163954799'
 ```
 
-## Supporter cards
+## Supported cards
 
 At the moment, only a few types and countries are (partially) supported.
 
