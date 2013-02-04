@@ -1,4 +1,4 @@
-# Credy
+# Credy [![Build Status](https://travis-ci.org/TimPetricola/Credy.png?branch=master)](https://travis-ci.org/TimPetricola/Credy)
 
 A simple credit card generator.
 
