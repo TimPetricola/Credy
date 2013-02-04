@@ -1,8 +1,10 @@
 # Credy [![Build Status](https://travis-ci.org/TimPetricola/Credy.png?branch=master)](https://travis-ci.org/TimPetricola/Credy)
 
-A simple credit card generator.
+A simple credit card generator/validator. 
+Need a valid credit card number to sign up on a site but you don't want to use your real card?
+Need to validate your customers credit card?
 
-## Functionnalities
+## Functionalities
 * Generates a valid number (per country/type)
 * Get information for a number
 * Check validity of a number
