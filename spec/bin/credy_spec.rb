@@ -88,9 +88,10 @@ describe Credy::CLI do
 
       it 'shows the card informations' do
         number = {number: '50076645747856835', type: 'visa', country: 'au'}
-        Credy::CreditCard.should_receive(:infos).and_return number
-        STDOUT.should_receive(:puts).with 'type: visa'
-        STDOUT.should_receive(:puts).with 'country: au'
+        Credy::CreditCard.should_receive(:infos).at_least(1).times.and_return number
+        STDOUT.should_receive(:puts).with 'Type: visa'
+        STDOUT.should_receive(:puts).with 'Country: au'
+        STDOUT.should_receive(:puts).with 'Valid'
         Credy::CLI.start ['infos', '50076645747856835']
       end
     end

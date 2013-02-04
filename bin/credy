@@ -40,8 +40,13 @@ module Credy
     def infos(number)
       infos = CreditCard.infos number
       if infos
-        puts "type: #{infos[:type]}"
-        puts "country: #{infos[:country]}"
+        puts "Type: #{infos[:type]}"
+        puts "Country: #{infos[:country]}" if infos[:country]
+        if CreditCard.validate(number)[:valid]
+          puts "Valid".green
+        else
+          puts "Not valid".red
+        end
       else
         puts 'No information available for this number.'
       end
