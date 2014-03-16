@@ -35,7 +35,7 @@ describe Credy::Rules do
         },
       })
 
-      subject.flatten.should == [
+      expect(subject.flatten).to eq [
         {:prefix=>"404159", :length=>[13, 16], :type=>"visa", :country=>"ch"},
         {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"},
         {:prefix=>"504837", :length=>16, :type=>"mastercard", :country=>"us"}
@@ -52,7 +52,7 @@ describe Credy::Rules do
         }
       })
 
-      subject.flatten.should == [
+      expect(subject.flatten).to eq [
         {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"}
       ]
     end
@@ -67,7 +67,7 @@ describe Credy::Rules do
         }
       })
 
-      subject.flatten.should == [
+      expect(subject.flatten).to eq [
         {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"}
       ]
     end
@@ -82,7 +82,7 @@ describe Credy::Rules do
         }
       })
 
-      subject.flatten.should == [
+      expect(subject.flatten).to eq [
         {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"},
         {:prefix=>"404137", :length=>[13, 16], :type=>"visa", :country=>"au"}
       ]
@@ -104,7 +104,7 @@ describe Credy::Rules do
         },
       })
 
-      subject.flatten(true).should == [
+      expect(subject.flatten(true)).to eq [
         {:prefix=>"404159", :length=>[13, 16], :type=>"visa", :country=>"ch"},
         {:prefix=>"401", :length=>[13, 16], :type=>"visa", :country=>"au"},
         {:prefix=>"51", :length=>16, :type=>"mastercard"},
@@ -114,9 +114,9 @@ describe Credy::Rules do
 
   end
 
-  describe '.filter' do 
+  describe '.filter' do
 
-    before do 
+    before do
       subject.stub(:all).and_return({
         'visa' => {
           'length' => [13, 16],
@@ -137,29 +137,29 @@ describe Credy::Rules do
     it { should respond_to :filter }
 
     it 'returns everything if no filter is provided' do
-      subject.filter.should be_a Array
-      subject.filter.should == subject.flatten
+      expect(subject.filter).to be_a Array
+      expect(subject.filter).to eq subject.flatten
     end
 
     it 'filters by type' do
-      subject.filter(type: 'visa').length.should == 2
-      subject.filter(type: 'mastercard').length.should == 1
+      expect(subject.filter(type: 'visa')).to have(2).items
+      expect(subject.filter(type: 'mastercard')).to have(1).item
     end
 
     it 'accepts the :country option' do
-      subject.filter(country: 'ch').length.should == 1
-      subject.filter(country: 'au').length.should == 2
+      expect(subject.filter(country: 'ch')).to have(1).item
+      expect(subject.filter(country: 'au')).to have(2).items
     end
 
     it 'accepts several options at the same time' do
       rules = subject.filter type: 'visa', country: 'au'
-      rules.length.should == 1
+      expect(rules).to have(1).item
     end
 
     it 'returns an empty array if nothing is found' do
       rules = subject.filter type: 'foo', country: 'bar'
-      rules.should be_a Array
-      rules.should be_empty
+      expect(rules).to be_a Array
+      expect(rules).to be_empty
     end
 
   end

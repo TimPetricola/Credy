@@ -1,7 +1,7 @@
 describe Credy::VERSION do
 
   it 'is defined' do
-    Credy::VERSION.should_not be_nil
+    expect(Credy::VERSION).not_to be_nil
   end
 
 end

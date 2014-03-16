@@ -27,43 +27,43 @@ describe Credy::CreditCard do
     Credy::Rules.stub(:all).and_return rules
   end
 
-  describe '.generate' do 
+  describe '.generate' do
 
     it 'returns a number, type and country' do
-      subject.generate[:number].should_not be_nil
-      subject.generate[:type].should_not be_nil
-      subject.generate[:country].should_not be_nil
+      expect(subject.generate[:number]).not_to be_nil
+      expect(subject.generate[:type]).not_to be_nil
+      expect(subject.generate[:country]).not_to be_nil
     end
 
     it 'accepts the :type option' do
       number = subject.generate type: 'visa'
-      number[:type].should == 'visa'
+      expect(number[:type]).to eq 'visa'
     end
 
     it 'accepts the :country option' do
       number = subject.generate country: 'ch'
-      number[:country].should == 'ch'
+      expect(number[:country]).to eq 'ch'
     end
 
     it 'accepts several options at the same time' do
       number = subject.generate type: 'mastercard', country: 'au'
-      number[:type].should == 'mastercard'
-      number[:country].should == 'au'
+      expect(number[:type]).to eq 'mastercard'
+      expect(number[:country]).to eq 'au'
     end
 
     it 'generates the right number of digits' do
       number = subject.generate type: 'mastercard'
-      number[:number].length.should == 16
+      expect(number[:number].length).to be 16
     end
 
     it 'generate a number with the right prefix' do
       number = subject.generate type: 'mastercard', country: 'au'
-      number[:number].should =~ /^401795/
+      expect(number[:number]).to match /^401795/
     end
 
     it 'returns nil if nothing is found' do
       number = subject.generate type: 'foo', country: 'bar'
-      number.should be_nil
+      expect(number).to be_nil
     end
 
   end
@@ -72,8 +72,8 @@ describe Credy::CreditCard do
 
     it 'returns the correct information according to the card number' do
       infos = subject.infos '5108756163954792'
-      infos[:type].should == 'mastercard'
-      infos[:country].should == 'us'
+      expect(infos[:type]).to eq 'mastercard'
+      expect(infos[:country]).to eq 'us'
     end
 
   end
@@ -82,21 +82,21 @@ describe Credy::CreditCard do
 
     it 'returns a hash' do
       r = subject.validate '5108756163954792'
-      r[:valid].should be_true
-      r[:details][:luhn].should be_true
-      r[:details][:type].should be_true
+      expect(r[:valid]).to be_true
+      expect(r[:details][:luhn]).to be_true
+      expect(r[:details][:type]).to be_true
     end
 
     it 'checks against luhn algorithm' do
       r = subject.validate '5108756163954791'
-      r[:valid].should be_false
-      r[:details][:luhn].should be_false
+      expect(r[:valid]).to be_false
+      expect(r[:details][:luhn]).to be_false
     end
 
     it 'checks against card type' do
       r = subject.validate '99999999999999999999992'
-      r[:valid].should be_false
-      r[:details][:type].should be_false
+      expect(r[:valid]).to be_false
+      expect(r[:details][:type]).to be_false
     end
 
   end
