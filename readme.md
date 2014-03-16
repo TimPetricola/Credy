@@ -1,6 +1,6 @@
-# Credy [![Build Status](https://travis-ci.org/TimPetricola/Credy.png?branch=master)](https://travis-ci.org/TimPetricola/Credy)
+# Credy [![Build Status](https://travis-ci.org/TimPetricola/Credy.png?branch=master)](https://travis-ci.org/TimPetricola/Credy) [![Gem Version](https://badge.fury.io/rb/credy.png)](http://badge.fury.io/rb/credy) [![Code Climate](https://codeclimate.com/github/TimPetricola/Credy.png)](https://codeclimate.com/github/TimPetricola/Credy)
 
-A simple credit card generator/validator. 
+A simple credit card generator/validator.
 Need a valid credit card number to sign up on a site but you don't want to use your real card?
 Need to validate your customers credit card?
 
