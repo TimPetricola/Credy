@@ -6,14 +6,7 @@ module Credy
 
     # Return all the rules from yml files
     def self.all
-      @rules ||= begin
-        rules = {}
-        Dir.glob "#{Credy.root}/data/*.yml" do |filename|
-          r = YAML::load IO.read(filename)
-          rules.merge! r
-        end
-        rules
-      end
+      @rules ||= load_rules("#{Credy.root}/data/*.yml")
     end
 
     # Change hash format to process rules
@@ -72,6 +65,15 @@ module Credy
         end
       end
     end
+
+    def self.load_rules(files)
+      {}.tap do |rules|
+        Dir.glob(files) do |filename|
+          rules.merge! YAML::load IO.read(filename)
+        end
+      end
+    end
+    private_class_method :load_rules
 
   end
 
