@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.authors       = ['Tim Petricola']
   s.email         = ['hi@timpetricola.com']
   s.summary       = %q{A simple (but powerful) credit card number generator}
-  s.homepage      = ''
+  s.homepage      = 'https://github.com/TimPetricola/Credy'
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files         = `git ls-files`.split "\n"
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split "\n"
