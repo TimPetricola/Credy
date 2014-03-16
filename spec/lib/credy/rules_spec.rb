@@ -5,12 +5,8 @@ describe Credy::Rules do
   subject { Credy::Rules }
 
   describe '.all' do
-
     it { should respond_to :all }
     its(:all) { should be_a Hash }
-
-    it 'should be tested more'
-
   end
 
   describe '.flatten' do

@@ -1,12 +1,10 @@
 require_relative '../spec_helper'
-
 silent { load 'bin/credy' }
 
 describe Credy::CLI do
 
-  before :all do
-    @stdout = $stdout
-    $stdout = StringIO.new
+  before(:all) do
+    @stdout, $stdout = $stdout, StringIO.new
   end
 
   describe 'generate' do
@@ -35,15 +33,10 @@ describe Credy::CLI do
     end
 
     describe 'result' do
-
-      before :all do
-        $stdout = @stdout
-      end
-
       it 'stops if no number is found' do
         expect(Credy::CreditCard).to receive(:generate).once.and_return(nil)
-        expect(STDOUT).to receive(:puts).with('No rule found for those criteria.').once
-        Credy::CLI.start ['generate', '-n', 10]
+        output = silent { Credy::CLI.start ['generate', '-n', 10] }
+        expect(output).to eq "No rule found for those criteria.\n"
       end
 
       describe '--details' do
@@ -53,14 +46,16 @@ describe Credy::CLI do
         end
 
         it 'only returns the number' do
-          expect(STDOUT).to receive(:puts).with('50076645747856835').once
-          Credy::CLI.start ['generate']
+          output = silent { Credy::CLI.start ['generate'] }
+          expect(output).to eq "50076645747856835\n"
         end
 
         it 'accepts to return more details' do
-          expect(STDOUT).to receive(:puts).with('50076645747856835 (visa, au)').twice
-          Credy::CLI.start ['generate', '--details']
-          Credy::CLI.start ['generate', '-d']
+          output = silent do
+            Credy::CLI.start ['generate', '--details']
+            Credy::CLI.start ['generate', '-d']
+          end
+          expect(output).to eq "50076645747856835 (visa, au)\n"*2
         end
       end
 
@@ -72,27 +67,23 @@ describe Credy::CLI do
 
     it 'calls the infos function' do
       expect(Credy::CreditCard).to receive(:infos).with '5108756163954799'
-      Credy::CLI.start ['infos', '5108756163954799']
+      silent {
+        Credy::CLI.start ['infos', '5108756163954799']
+      }
     end
 
     describe 'result' do
-      before :all do
-        $stdout = @stdout
-      end
-
       it 'shows error if nothing found' do
         expect(Credy::CreditCard).to receive(:infos).and_return nil
-        expect(STDOUT).to receive(:puts).with 'No information available for this number.'
-        Credy::CLI.start ['infos', '5108756163954799']
+        output = silent { Credy::CLI.start ['infos', '5108756163954799'] }
+        expect(output).to eq "No information available for this number.\n"
       end
 
       it 'shows the card informations' do
         number = {number: '50076645747856835', type: 'visa', country: 'au'}
         expect(Credy::CreditCard).to receive(:infos).at_least(1).times.and_return number
-        expect(STDOUT).to receive(:puts).with 'Type: visa'
-        expect(STDOUT).to receive(:puts).with 'Country: au'
-        expect(STDOUT).to receive(:puts).with 'Valid'
-        Credy::CLI.start ['infos', '50076645747856835']
+        output = silent { Credy::CLI.start ['infos', '50076645747856835'] }
+        expect(output).to eq "Type: visa\nCountry: au\nValid\n"
       end
     end
 
@@ -105,24 +96,18 @@ describe Credy::CLI do
     end
 
     describe 'result' do
-      before :all do
-        $stdout = @stdout
-      end
-
       it 'shows card validity and details' do
         validity = { valid: true, details: { luhn: true, type: true} }
         expect(Credy::CreditCard).to receive(:validate).and_return validity
-        expect(STDOUT).to receive(:puts).with 'This number is valid.'
-        expect(STDOUT).to receive(:puts).with '(luhn: v, type: v)'
-        Credy::CLI.start ['validate', '50076645747856835']
+        output = silent { Credy::CLI.start ['validate', '50076645747856835'] }
+        expect(output).to eq "This number is valid.\n(luhn: v, type: v)\n"
       end
 
        it 'shows card validity and details for invalid number' do
         validity = { valid: false, details: { luhn: false, type: false} }
         expect(Credy::CreditCard).to receive(:validate).and_return validity
-        expect(STDOUT).to receive(:puts).with 'This number is not valid.'
-        expect(STDOUT).to receive(:puts).with '(luhn: x, type: x)'
-        Credy::CLI.start ['validate', '5108756163954799']
+        output = silent { Credy::CLI.start ['validate', '5108756163954799'] }
+        expect(output).to eq "This number is not valid.\n(luhn: x, type: x)\n"
       end
 
     end
