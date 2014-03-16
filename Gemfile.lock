@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    credy (0.1.1)
+    credy (0.2.0)
       thor (~> 0.18.1)
 
 GEM
