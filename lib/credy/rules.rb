@@ -32,7 +32,7 @@ module Credy
               rules.push({
                 prefix: prefix.to_s,
                 length: details['length'],
-                type: type
+                type:   type
               })
             end
           end
@@ -48,7 +48,7 @@ module Credy
               rules.push({
                 prefix: prefix.to_s,
                 length: details['length'],
-                type: type,
+                type:   type,
                 country: country,
               })
             end

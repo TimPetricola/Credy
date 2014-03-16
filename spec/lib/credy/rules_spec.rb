@@ -36,9 +36,9 @@ describe Credy::Rules do
       })
 
       expect(subject.flatten).to eq [
-        {:prefix=>"404159", :length=>[13, 16], :type=>"visa", :country=>"ch"},
-        {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"},
-        {:prefix=>"504837", :length=>16, :type=>"mastercard", :country=>"us"}
+        {prefix:"404159", length:[13, 16], type:"visa", country:"ch"},
+        {prefix:"401795", length:[13, 16], type:"visa", country:"au"},
+        {prefix:"504837", length:16, type:"mastercard", country:"us"}
       ]
     end
 
@@ -53,7 +53,7 @@ describe Credy::Rules do
       })
 
       expect(subject.flatten).to eq [
-        {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"}
+        {prefix:"401795", length:[13, 16], type:"visa", country:"au"}
       ]
     end
 
@@ -68,7 +68,7 @@ describe Credy::Rules do
       })
 
       expect(subject.flatten).to eq [
-        {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"}
+        {prefix:"401795", length:[13, 16], type:"visa", country:"au"}
       ]
     end
 
@@ -83,8 +83,8 @@ describe Credy::Rules do
       })
 
       expect(subject.flatten).to eq [
-        {:prefix=>"401795", :length=>[13, 16], :type=>"visa", :country=>"au"},
-        {:prefix=>"404137", :length=>[13, 16], :type=>"visa", :country=>"au"}
+        {prefix:"401795", length:[13, 16], type:"visa", country:"au"},
+        {prefix:"404137", length:[13, 16], type:"visa", country:"au"}
       ]
     end
 
@@ -105,10 +105,10 @@ describe Credy::Rules do
       })
 
       expect(subject.flatten(true)).to eq [
-        {:prefix=>"404159", :length=>[13, 16], :type=>"visa", :country=>"ch"},
-        {:prefix=>"401", :length=>[13, 16], :type=>"visa", :country=>"au"},
-        {:prefix=>"51", :length=>16, :type=>"mastercard"},
-        {:prefix=>"4", :length=>[13, 16], :type=>"visa"}
+        {prefix:"404159", length:[13, 16], type:"visa", country:"ch"},
+        {prefix:"401", length:[13, 16], type:"visa", country:"au"},
+        {prefix:"51", length:16, type:"mastercard"},
+        {prefix:"4", length:[13, 16], type:"visa"}
       ]
     end
 

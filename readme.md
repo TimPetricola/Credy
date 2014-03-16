@@ -35,8 +35,8 @@ credy validate 5108756163954799
 ### Generate
 ``` ruby
 options {
-  :country => 'au',
-  :type    => 'mastercard'
+  country: 'au',
+  type:    'mastercard'
 }
 Credy::CreditCard.generate options
 ```
