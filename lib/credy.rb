@@ -21,7 +21,7 @@ module Credy
       return nil unless rule
 
       length = rule[:length].is_a?(Array) ? rule[:length].sample : rule[:length]
-      number = rule[:prefix] 
+      number = rule[:prefix]
 
       # Generates n-1 digits
       (length - number.length - 1).times do
@@ -78,7 +78,7 @@ module Credy
         details: criterii
       }
     end
-  
+
   end
 
 end

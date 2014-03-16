@@ -19,14 +19,14 @@ module Credy
       args[:country] = options[:country] unless options[:country] == 'all'
       args[:type]    = options[:type] unless options[:type] == 'all'
 
-      options[:number].times do 
+      options[:number].times do
         number = CreditCard.generate args
 
         unless number
           puts 'No rule found for those criteria.'
           break
         end
-        
+
         if details
           d = [number[:type], number[:country]].compact
           puts "#{number[:number]} (#{d.join(', ')})"
@@ -71,7 +71,7 @@ module Credy
       end
       puts "(#{details.join(', ')})"
     end
-  
+
   end
 
 end

@@ -21,7 +21,7 @@ module Credy
       rules = []
 
       all.each do |type, details|
-        
+
         if global_rules
           # Add general rules
           global_prefixes = details['prefix']
