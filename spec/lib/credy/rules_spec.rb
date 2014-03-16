@@ -9,12 +9,11 @@ describe Credy::Rules do
     its(:raw) { should be_a Hash }
   end
 
-  describe '.flatten' do
+  describe '.all' do
 
-    it { should respond_to :flatten }
-    its(:flatten) { should be_a Array }
+    its(:all) { should be_a Array }
 
-    it 'flattens a rules hash' do
+    it 'contains a set of rules' do
       subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
@@ -25,16 +24,14 @@ describe Credy::Rules do
         },
         'mastercard' => {
           'length' => 16,
-          'countries' => {
-            'us' => '504837'
-          }
-        },
+          'prefix' => '51'
+        }
       })
 
-      expect(subject.flatten).to eq [
+      expect(subject.all).to eq [
         {prefix:"404159", length:[13, 16], type:"visa", country:"ch"},
         {prefix:"401795", length:[13, 16], type:"visa", country:"au"},
-        {prefix:"504837", length:16, type:"mastercard", country:"us"}
+        {prefix:"51", length:16, type:"mastercard"}
       ]
     end
 
@@ -48,7 +45,7 @@ describe Credy::Rules do
         }
       })
 
-      expect(subject.flatten).to eq [
+      expect(subject.all).to eq [
         {prefix:"401795", length:[13, 16], type:"visa", country:"au"}
       ]
     end
@@ -63,7 +60,7 @@ describe Credy::Rules do
         }
       })
 
-      expect(subject.flatten).to eq [
+      expect(subject.all).to eq [
         {prefix:"401795", length:[13, 16], type:"visa", country:"au"}
       ]
     end
@@ -78,33 +75,9 @@ describe Credy::Rules do
         }
       })
 
-      expect(subject.flatten).to eq [
+      expect(subject.all).to eq [
         {prefix:"401795", length:[13, 16], type:"visa", country:"au"},
         {prefix:"404137", length:[13, 16], type:"visa", country:"au"}
-      ]
-    end
-
-    it 'includes global rules' do
-      subject.stub(:raw).and_return({
-        'visa' => {
-          'length' => [13, 16],
-          'prefix' => '4',
-          'countries' => {
-            'ch' => '404159',
-            'au' => '401'
-          }
-        },
-        'mastercard' => {
-          'length' => 16,
-          'prefix' => '51'
-        },
-      })
-
-      expect(subject.flatten(true)).to eq [
-        {prefix:"404159", length:[13, 16], type:"visa", country:"ch"},
-        {prefix:"401", length:[13, 16], type:"visa", country:"au"},
-        {prefix:"51", length:16, type:"mastercard"},
-        {prefix:"4", length:[13, 16], type:"visa"}
       ]
     end
 
@@ -134,7 +107,7 @@ describe Credy::Rules do
 
     it 'returns everything if no filter is provided' do
       expect(subject.filter).to be_a Array
-      expect(subject.filter).to eq subject.flatten
+      expect(subject.filter).to eq subject.all
     end
 
     it 'filters by type' do

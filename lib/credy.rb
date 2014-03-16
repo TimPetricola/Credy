@@ -25,7 +25,7 @@ module Credy
 
     # Returns information about a number
     def self.infos(number)
-      rules = Rules.flatten(true).select do |rule|
+      rules = Rules.all.select do |rule|
         valid = true
 
         # Check number of digits
@@ -59,8 +59,7 @@ module Credy
     end
 
     def self.find_rule(options = {})
-      include_global_rules = options[:country].nil?
-      Rules.filter(options, include_global_rules).sample
+      Rules.filter(options).sample
     end
     private_class_method :find_rule
 
