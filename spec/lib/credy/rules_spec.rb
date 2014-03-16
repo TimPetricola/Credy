@@ -4,9 +4,9 @@ describe Credy::Rules do
 
   subject { Credy::Rules }
 
-  describe '.all' do
-    it { should respond_to :all }
-    its(:all) { should be_a Hash }
+  describe '.raw' do
+    it { should respond_to :raw }
+    its(:raw) { should be_a Hash }
   end
 
   describe '.flatten' do
@@ -15,7 +15,7 @@ describe Credy::Rules do
     its(:flatten) { should be_a Array }
 
     it 'flattens a rules hash' do
-      subject.stub(:all).and_return({
+      subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -39,7 +39,7 @@ describe Credy::Rules do
     end
 
     it 'works with string prefixes' do
-      subject.stub(:all).and_return({
+      subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -54,7 +54,7 @@ describe Credy::Rules do
     end
 
     it 'works with integer prefixes' do
-      subject.stub(:all).and_return({
+      subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -69,7 +69,7 @@ describe Credy::Rules do
     end
 
     it 'works with an array of prefixes' do
-      subject.stub(:all).and_return({
+      subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -85,7 +85,7 @@ describe Credy::Rules do
     end
 
     it 'includes global rules' do
-      subject.stub(:all).and_return({
+      subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'prefix' => '4',
@@ -113,7 +113,7 @@ describe Credy::Rules do
   describe '.filter' do
 
     before do
-      subject.stub(:all).and_return({
+      subject.stub(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {

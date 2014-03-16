@@ -24,7 +24,7 @@ describe Credy::CreditCard do
   end
 
   before(:each) do
-    Credy::Rules.stub(:all).and_return rules
+    Credy::Rules.stub(:raw).and_return rules
   end
 
   describe '.generate' do

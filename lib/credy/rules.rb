@@ -5,7 +5,7 @@ module Credy
   class Rules
 
     # Return all the rules from yml files
-    def self.all
+    def self.raw
       @rules ||= load_rules("#{Credy.root}/data/*.yml")
     end
 
@@ -13,7 +13,7 @@ module Credy
     def self.flatten(global_rules = false)
       rules = []
 
-      all.each do |type, details|
+      raw.each do |type, details|
 
         if global_rules
           # Add general rules
