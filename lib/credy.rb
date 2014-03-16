@@ -13,33 +13,12 @@ module Credy
 
     # Generate a credit card number
     def self.generate(options = {})
-
-      # Include global rules (not based on country)
-      include_global_rules = options[:country].nil?
-      rule = Rules.filter(options, include_global_rules).sample
-
-      return nil unless rule
-
-      length = rule[:length].is_a?(Array) ? rule[:length].sample : rule[:length]
-      number = rule[:prefix]
-
-      # Generates n-1 digits
-      (length - number.length - 1).times do
-        number = number + rand(10).to_s
-      end
-
-      # Generates the last digit according to luhn algorithm
-      l = nil
-      digits = (0..9).to_a.map(&:to_s)
-      begin
-        l = digits.delete digits.sample
-      end while !Check.luhn number+l
-
-      number = number+l
+      rule   = find_rule(options) || return
+      number = generate_from_rule(rule)
 
       {
-        number: number,
-        type: rule[:type],
+        number:  number,
+        type:    rule[:type],
         country: rule[:country]
       }
     end
@@ -78,6 +57,37 @@ module Credy
         details: criterii
       }
     end
+
+    def self.find_rule(options = {})
+      include_global_rules = options[:country].nil?
+      Rules.filter(options, include_global_rules).sample
+    end
+    private_class_method :find_rule
+
+    def self.complete_number(number)
+      # Generates the last digit according to luhn algorithm
+      digits = (0..9).map(&:to_s)
+      begin
+        full = number + digits.delete(digits.sample)
+      end while !Check.luhn(full)
+
+      full
+    end
+    private_class_method :complete_number
+
+    def self.generate_from_rule(rule)
+      length = Array(rule[:length]).sample
+      number = rule[:prefix]
+
+      # Generates n-1 digits
+      (length - number.length - 1).times do
+        number += rand(10).to_s
+      end
+
+      # Append last digit
+      complete_number(number)
+    end
+    private_class_method :generate_from_rule
 
   end
 
