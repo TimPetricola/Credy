@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     credy (0.1.1)
-      thor
+      thor (~> 0.17.0)
 
 GEM
   remote: https://rubygems.org/
@@ -24,6 +24,5 @@ PLATFORMS
 
 DEPENDENCIES
   credy!
-  rake
-  rspec
-  rspec-mocks
+  rake (~> 10.0.3)
+  rspec (~> 2.12.0)
