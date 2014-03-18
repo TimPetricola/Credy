@@ -56,32 +56,32 @@ Credy::CreditCard.validate '5108756163954799'
 At the moment, only a few types and countries are (partially) supported.
 
 ### Types
-* americanexpress (American Express)
-* bankcard (Bankcard)
-* china-unionpay (China UnionPay)
-* diners-club-carte-blanche (Diners Club Carte Blanche)
-* diners-club-enroute (Diners Club enRoute)
-* diners-club-international (Diners Club International)
-* diners-club-us-ca (Diners Club United States & Canada)
-* instapayment (InstaPayment)
-* jcb (JCB)
-* laser (Laser)
-* maestro (Maestro)
-* mastercard (Mastercard)
-* solo (Solo)
-* switch (Switch)
-* visa (Visa)
-* visa-electron (Visa Electron)
+* `americanexpress`: American Express
+* `bankcard`: Bankcard
+* `china-unionpay`: China UnionPay
+* `diners-club-carte-blanche`: Diners Club Carte Blanche
+* `diners-club-enroute`: Diners Club enRoute
+* `diners-club-international`: Diners Club International
+* `diners-club-us-ca`: Diners Club United States & Canada
+* `instapayment`: InstaPayment
+* `jcb`: JCB
+* `laser`: Laser
+* `maestro`: Maestro
+* `mastercard`: Mastercard
+* `solo`: Solo
+* `switch`: Switch
+* `visa`: Visa
+* `visa-electron`: Visa Electron
 
-### Countries
-* au (Australia)
-* ca (Canada)
-* fr (France)
-* pl (Poland)
-* es (Spain)
-* ch (Switzerland)
-* uk (United Kingdom)
-* us (United States)
+### Countrie
+* `au`: Australia
+* `ca`: Canada
+* `fr`: France
+* `pl`: Poland
+* `es`: Spain
+* `ch`: Switzerland
+* `uk`: United Kingdom
+* `us`: United States
 
 ## Todo
 * Add more data (see the Data source section)
