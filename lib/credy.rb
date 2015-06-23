@@ -4,15 +4,15 @@ require 'credy/rules'
 require 'credy/check'
 
 module Credy
-
   def self.root
     File.expand_path '../..', __FILE__
   end
 
-  class CreditCard
+  module CreditCard
+    extend self
 
     # Generate a credit card number
-    def self.generate(options = {})
+    def generate(options = {})
       rule   = find_rule(options) || return
       number = generate_from_rule(rule)
 
@@ -24,7 +24,7 @@ module Credy
     end
 
     # Returns information about a number
-    def self.infos(number)
+    def infos(number)
       rules = Rules.all.select do |rule|
         valid = true
 
@@ -45,10 +45,10 @@ module Credy
     end
 
     # Validates a number
-    def self.validate(number)
+    def validate(number)
       criterii = {}
       criterii[:luhn] = Check.luhn number
-      criterii[:type] = !!self.infos(number)
+      criterii[:type] = !!infos(number)
 
       valid = criterii.all? { |_, v| v == true }
 
@@ -58,12 +58,13 @@ module Credy
       }
     end
 
-    def self.find_rule(options = {})
+    private
+
+    def find_rule(options = {})
       Rules.filter(options).sample
     end
-    private_class_method :find_rule
 
-    def self.complete_number(number)
+    def complete_number(number)
       # Generates the last digit according to luhn algorithm
       digits = (0..9).map(&:to_s)
       begin
@@ -72,9 +73,8 @@ module Credy
 
       full
     end
-    private_class_method :complete_number
 
-    def self.generate_from_rule(rule)
+    def generate_from_rule(rule)
       length = Array(rule[:length]).sample
       number = rule[:prefix]
 
@@ -86,8 +86,5 @@ module Credy
       # Append last digit
       complete_number(number)
     end
-    private_class_method :generate_from_rule
-
   end
-
 end

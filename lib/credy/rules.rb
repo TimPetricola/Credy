@@ -1,16 +1,16 @@
 require 'yaml'
 
 module Credy
-
-  class Rules
+  module Rules
+    extend self
 
     # Return all the rules from yml files
-    def self.raw
+    def raw
       @rules ||= load_rules("#{Credy.root}/data/*.yml")
     end
 
     # Change hash format to process rules
-    def self.all
+    def all
       rules = []
 
       raw.each do |type, details|
@@ -43,7 +43,7 @@ module Credy
     end
 
     # Returns rules according to given filters
-    def self.filter(filters = {})
+    def filter(filters = {})
       all.select do |rule|
         [:country, :type].each do |condition|
           break false if filters[condition] && filters[condition] != rule[condition]
@@ -52,15 +52,14 @@ module Credy
       end
     end
 
-    def self.load_rules(files)
+    private
+
+    def load_rules(files)
       {}.tap do |rules|
         Dir.glob(files) do |filename|
           rules.merge! YAML::load IO.read(filename)
         end
       end
     end
-    private_class_method :load_rules
-
   end
-
 end
