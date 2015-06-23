@@ -5,7 +5,7 @@ require File.expand_path '../lib/credy/version', __FILE__
 Gem::Specification.new do |s|
   s.authors       = ['Tim Petricola']
   s.email         = ['hi@timpetricola.com']
-  s.summary       = %q{A simple (but powerful) credit card number generator}
+  s.summary       = 'Simple credit card number generator'
   s.license       = 'MIT'
   s.homepage      = 'https://github.com/TimPetricola/Credy'
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

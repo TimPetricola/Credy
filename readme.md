@@ -1,6 +1,6 @@
 # Credy [![Build Status](https://travis-ci.org/TimPetricola/Credy.png?branch=master)](https://travis-ci.org/TimPetricola/Credy) [![Gem Version](https://badge.fury.io/rb/credy.png)](http://badge.fury.io/rb/credy) [![Code Climate](https://codeclimate.com/github/TimPetricola/Credy.png)](https://codeclimate.com/github/TimPetricola/Credy)
 
-A simple credit card generator/validator.
+Simple credit card generator/validator.
 Need a valid credit card number to sign up on a site but you don't want to use your real card?
 Need to validate your customers credit card?
 
@@ -73,7 +73,7 @@ At the moment, only a few types and countries are (partially) supported.
 * `visa`: Visa
 * `visa-electron`: Visa Electron
 
-### Countrie
+### Countries
 * `au`: Australia
 * `ca`: Canada
 * `fr`: France
@@ -88,7 +88,7 @@ At the moment, only a few types and countries are (partially) supported.
 * Remove luhn validation for *China UnionPay* and *Diners Club enRoute*
 
 ## Data source
-All data is coming from the [Bank card number](http://en.wikipedia.org/wiki/Bank_card_number) page and the [List of Issuer Identification Numbers](http://en.wikipedia.org/wiki/List_of_Issuer_Identification_Numbers) on [Wikipedia](http://wikipedia.org). I do not assume the responsibility for wrong data.
+All data is coming from the [Bank card number](http://en.wikipedia.org/wiki/Bank_card_number) page and the now deleted [List of Issuer Identification Numbers](http://en.wikipedia.org/wiki/List_of_Issuer_Identification_Numbers) on Wikipedia. I do not assume the responsibility for wrong data.
 
 ## License
 Credy is released under the [MIT License](http://opensource.org/licenses/MIT).
