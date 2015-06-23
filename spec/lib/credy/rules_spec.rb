@@ -1,20 +1,23 @@
 require_relative '../../spec_helper'
 
 describe Credy::Rules do
-
   subject { Credy::Rules }
 
   describe '.raw' do
     it { should respond_to :raw }
-    its(:raw) { should be_a Hash }
+
+    it 'is a hash' do
+      expect(subject.raw).to be_a Hash
+    end
   end
 
   describe '.all' do
-
-    its(:all) { should be_a Array }
+    it 'is a array' do
+      expect(subject.all).to be_a Array
+    end
 
     it 'contains a set of rules' do
-      subject.stub(:raw).and_return({
+      allow(subject).to receive(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -36,7 +39,7 @@ describe Credy::Rules do
     end
 
     it 'works with string prefixes' do
-      subject.stub(:raw).and_return({
+      allow(subject).to receive(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -51,7 +54,7 @@ describe Credy::Rules do
     end
 
     it 'works with integer prefixes' do
-      subject.stub(:raw).and_return({
+      allow(subject).to receive(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -66,7 +69,7 @@ describe Credy::Rules do
     end
 
     it 'works with an array of prefixes' do
-      subject.stub(:raw).and_return({
+      allow(subject).to receive(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -84,9 +87,8 @@ describe Credy::Rules do
   end
 
   describe '.filter' do
-
     before do
-      subject.stub(:raw).and_return({
+      allow(subject).to receive(:raw).and_return({
         'visa' => {
           'length' => [13, 16],
           'countries' => {
@@ -111,18 +113,18 @@ describe Credy::Rules do
     end
 
     it 'filters by type' do
-      expect(subject.filter(type: 'visa')).to have(2).items
-      expect(subject.filter(type: 'mastercard')).to have(1).item
+      expect(subject.filter(type: 'visa').length).to eq 2
+      expect(subject.filter(type: 'mastercard').length).to eq 1
     end
 
     it 'accepts the :country option' do
-      expect(subject.filter(country: 'ch')).to have(1).item
-      expect(subject.filter(country: 'au')).to have(2).items
+      expect(subject.filter(country: 'ch').length).to eq 1
+      expect(subject.filter(country: 'au').length).to eq 2
     end
 
     it 'accepts several options at the same time' do
       rules = subject.filter type: 'visa', country: 'au'
-      expect(rules).to have(1).item
+      expect(rules.length).to eq 1
     end
 
     it 'returns an empty array if nothing is found' do
@@ -130,7 +132,5 @@ describe Credy::Rules do
       expect(rules).to be_a Array
       expect(rules).to be_empty
     end
-
   end
-
 end

@@ -2,13 +2,11 @@ require_relative '../spec_helper'
 silent { load 'bin/credy' }
 
 describe Credy::CLI do
-
   before(:all) do
     @stdout, $stdout = $stdout, StringIO.new
   end
 
   describe 'generate' do
-
     it 'works without options' do
       expect(Credy::CreditCard).to receive(:generate).with({})
       r = Credy::CLI.start ['generate']
@@ -58,13 +56,10 @@ describe Credy::CLI do
           expect(output).to eq "50076645747856835 (visa, au)\n"*2
         end
       end
-
     end
-
   end
 
   describe 'infos' do
-
     it 'calls the infos function' do
       expect(Credy::CreditCard).to receive(:infos).with '5108756163954799'
       silent {
@@ -86,7 +81,6 @@ describe Credy::CLI do
         expect(output).to eq "Type: visa\nCountry: au\nValid\n"
       end
     end
-
   end
 
   describe 'validate' do
@@ -109,8 +103,6 @@ describe Credy::CLI do
         output = silent { Credy::CLI.start ['validate', '5108756163954799'] }
         expect(output).to eq "This number is not valid.\n(luhn: x, type: x)\n"
       end
-
     end
   end
-
 end

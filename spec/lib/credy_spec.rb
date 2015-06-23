@@ -1,7 +1,6 @@
 require_relative '../spec_helper'
 
 describe Credy::CreditCard do
-
   subject { Credy::CreditCard }
 
   let(:rules) do
@@ -24,11 +23,10 @@ describe Credy::CreditCard do
   end
 
   before(:each) do
-    Credy::Rules.stub(:raw).and_return rules
+    allow(Credy::Rules).to receive(:raw).and_return rules
   end
 
   describe '.generate' do
-
     it 'returns a number, type and country' do
       expect(subject.generate[:number]).not_to be_nil
       expect(subject.generate[:type]).not_to be_nil
@@ -65,40 +63,34 @@ describe Credy::CreditCard do
       number = subject.generate type: 'foo', country: 'bar'
       expect(number).to be_nil
     end
-
   end
 
   describe '.infos' do
-
     it 'returns the correct information according to the card number' do
       infos = subject.infos '5108756163954792'
       expect(infos[:type]).to eq 'mastercard'
       expect(infos[:country]).to eq 'us'
     end
-
   end
 
   describe '.validate' do
-
     it 'returns a hash' do
       r = subject.validate '5108756163954792'
-      expect(r[:valid]).to be_true
-      expect(r[:details][:luhn]).to be_true
-      expect(r[:details][:type]).to be_true
+      expect(r[:valid]).to be_truthy
+      expect(r[:details][:luhn]).to be_truthy
+      expect(r[:details][:type]).to be_truthy
     end
 
     it 'checks against luhn algorithm' do
       r = subject.validate '5108756163954791'
-      expect(r[:valid]).to be_false
-      expect(r[:details][:luhn]).to be_false
+      expect(r[:valid]).to be_falsey
+      expect(r[:details][:luhn]).to be_falsey
     end
 
     it 'checks against card type' do
       r = subject.validate '99999999999999999999992'
-      expect(r[:valid]).to be_false
-      expect(r[:details][:type]).to be_false
+      expect(r[:valid]).to be_falsey
+      expect(r[:details][:type]).to be_falsey
     end
-
   end
-
 end
