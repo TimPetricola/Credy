@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
   s.version       = Credy::VERSION
 
   s.add_development_dependency 'rspec', '~> 3.3.0'
-  s.add_development_dependency 'rake', '~> 10.4.2'
+  s.add_development_dependency 'rake', '~> 13.0.1'
   s.add_runtime_dependency 'thor', '~> 0.19.1'
 end
